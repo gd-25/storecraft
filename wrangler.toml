@@ -2,14 +2,15 @@ name = "storecraft"
 compatibility_date = "2025-09-02"
 compatibility_flags = ["nodejs_compat"]
 
-main = "server-entry.ts"
+main = "dist/server/server.js"
 
 [observability]
 enabled = true
 
-# Static assets configuration
-[site]
-bucket = "./dist/client"
+# Static assets configuration using Workers Assets
+[assets]
+directory = "./dist/client"
+binding = "ASSETS"
 
 # Environment variables (add as needed)
 # [vars]
