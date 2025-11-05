@@ -8,6 +8,7 @@
     "serve": "vite preview",
     "deploy": "pnpm build && wrangler deploy",
     "deploy:preview": "pnpm build && wrangler deploy --dry-run",
+    "cf-typegen": "wrangler types",
     "test": "vitest run",
     "lint": "eslint",
     "format": "prettier",
