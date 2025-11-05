@@ -2,7 +2,7 @@ name = "storecraft"
 compatibility_date = "2025-09-02"
 compatibility_flags = ["nodejs_compat"]
 
-main = "dist/server/server.js"
+main = "server-entry.ts"
 
 [observability]
 enabled = true
