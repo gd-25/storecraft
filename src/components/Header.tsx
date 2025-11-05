@@ -2,54 +2,91 @@ import { Link } from '@tanstack/react-router'
 
 import { useState } from 'react'
 import {
-  ChevronDown,
-  ChevronRight,
   Home,
   Menu,
-  Network,
-  SquareFunction,
-  StickyNote,
-  Webhook,
+  Briefcase,
+  MapPin,
+  Mail,
+  Users,
   X,
 } from 'lucide-react'
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
-  const [groupedExpanded, setGroupedExpanded] = useState<
-    Record<string, boolean>
-  >({})
 
   return (
     <>
-      <header className="p-4 flex items-center bg-gray-800 text-white shadow-lg">
+      <header className="fixed top-0 left-0 right-0 z-40 px-6 py-4 flex items-center justify-between bg-background/95 backdrop-blur-sm border-b border-border shadow-sm">
+        <Link to="/" className="flex items-center gap-3">
+          <img
+            src="/STORECRAFT_EMBLEM_BLACK.svg"
+            alt="Storecraft"
+            className="h-8 md:h-10"
+          />
+        </Link>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-8">
+          <Link
+            to="/"
+            className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+            activeProps={{
+              className: 'text-sm font-medium text-primary transition-colors'
+            }}
+          >
+            Home
+          </Link>
+          <a
+            href="#services"
+            className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+          >
+            Services
+          </a>
+          <a
+            href="#about"
+            className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+          >
+            About
+          </a>
+          <a
+            href="#locations"
+            className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+          >
+            Locations
+          </a>
+          <a
+            href="#contact"
+            className="text-sm font-medium text-foreground hover:text-primary transition-colors px-6 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
+          >
+            Contact
+          </a>
+        </nav>
+
+        {/* Mobile Menu Button */}
         <button
           onClick={() => setIsOpen(true)}
-          className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
+          className="md:hidden p-2 hover:bg-accent rounded-lg transition-colors"
           aria-label="Open menu"
         >
           <Menu size={24} />
         </button>
-        <h1 className="ml-4 text-xl font-semibold">
-          <Link to="/">
-            <img
-              src="/tanstack-word-logo-white.svg"
-              alt="TanStack Logo"
-              className="h-10"
-            />
-          </Link>
-        </h1>
       </header>
 
+      {/* Mobile Sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-full w-80 bg-gray-900 text-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col ${
+        className={`fixed top-0 left-0 h-full w-80 bg-card text-card-foreground shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <div className="flex items-center justify-between p-4 border-b border-gray-700">
-          <h2 className="text-xl font-bold">Navigation</h2>
+        <div className="flex items-center justify-between p-6 border-b border-border">
+          <img
+            src="/STORECRAFT_EMBLEM_BLACK.svg"
+            alt="Storecraft"
+            className="h-8"
+          />
           <button
             onClick={() => setIsOpen(false)}
-            className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
+            className="p-2 hover:bg-accent rounded-lg transition-colors"
             aria-label="Close menu"
           >
             <X size={24} />
@@ -60,145 +97,61 @@ export default function Header() {
           <Link
             to="/"
             onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+            className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors mb-2"
             activeProps={{
               className:
-                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
+                'flex items-center gap-3 p-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors mb-2',
             }}
           >
             <Home size={20} />
             <span className="font-medium">Home</span>
           </Link>
 
-          {/* Demo Links Start */}
-
-          <Link
-            to="/demo/start/server-funcs"
+          <a
+            href="#services"
             onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-            activeProps={{
-              className:
-                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-            }}
+            className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors mb-2"
           >
-            <SquareFunction size={20} />
-            <span className="font-medium">Start - Server Functions</span>
-          </Link>
+            <Briefcase size={20} />
+            <span className="font-medium">Services</span>
+          </a>
 
-          <Link
-            to="/demo/start/api-request"
+          <a
+            href="#about"
             onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-            activeProps={{
-              className:
-                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-            }}
+            className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors mb-2"
           >
-            <Network size={20} />
-            <span className="font-medium">Start - API Request</span>
-          </Link>
+            <Users size={20} />
+            <span className="font-medium">About</span>
+          </a>
 
-          <div className="flex flex-row justify-between">
-            <Link
-              to="/demo/start/ssr"
-              onClick={() => setIsOpen(false)}
-              className="flex-1 flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-              activeProps={{
-                className:
-                  'flex-1 flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-              }}
-            >
-              <StickyNote size={20} />
-              <span className="font-medium">Start - SSR Demos</span>
-            </Link>
-            <button
-              className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
-              onClick={() =>
-                setGroupedExpanded((prev) => ({
-                  ...prev,
-                  StartSSRDemo: !prev.StartSSRDemo,
-                }))
-              }
-            >
-              {groupedExpanded.StartSSRDemo ? (
-                <ChevronDown size={20} />
-              ) : (
-                <ChevronRight size={20} />
-              )}
-            </button>
-          </div>
-          {groupedExpanded.StartSSRDemo && (
-            <div className="flex flex-col ml-4">
-              <Link
-                to="/demo/start/ssr/spa-mode"
-                onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-                activeProps={{
-                  className:
-                    'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-                }}
-              >
-                <StickyNote size={20} />
-                <span className="font-medium">SPA Mode</span>
-              </Link>
-
-              <Link
-                to="/demo/start/ssr/full-ssr"
-                onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-                activeProps={{
-                  className:
-                    'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-                }}
-              >
-                <StickyNote size={20} />
-                <span className="font-medium">Full SSR</span>
-              </Link>
-
-              <Link
-                to="/demo/start/ssr/data-only"
-                onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-                activeProps={{
-                  className:
-                    'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-                }}
-              >
-                <StickyNote size={20} />
-                <span className="font-medium">Data Only</span>
-              </Link>
-            </div>
-          )}
-
-          <Link
-            to="/demo/tanstack-query"
+          <a
+            href="#locations"
             onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-            activeProps={{
-              className:
-                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-            }}
+            className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors mb-2"
           >
-            <Network size={20} />
-            <span className="font-medium">TanStack Query</span>
-          </Link>
+            <MapPin size={20} />
+            <span className="font-medium">Locations</span>
+          </a>
 
-          <Link
-            to="/demo/mcp-todos"
+          <a
+            href="#contact"
             onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-            activeProps={{
-              className:
-                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-            }}
+            className="flex items-center gap-3 p-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors mt-4"
           >
-            <Webhook size={20} />
-            <span className="font-medium">MCP</span>
-          </Link>
-
-          {/* Demo Links End */}
+            <Mail size={20} />
+            <span className="font-medium">Contact</span>
+          </a>
         </nav>
       </aside>
+
+      {/* Backdrop */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
     </>
   )
 }

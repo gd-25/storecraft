@@ -29,7 +29,11 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TanStack Start Starter',
+        title: 'Storecraft – Global Project Management Consultancy',
+      },
+      {
+        description:
+          'Storecraft is a comprehensive, global project management consultancy specializing in the retail and hospitality sectors. We excel in managing the entire store development process, from site feasibility analysis to store opening, allowing brands to focus on delivering exceptional customer experiences.',
       },
     ],
     links: [
