@@ -2,12 +2,8 @@ import { Link } from '@tanstack/react-router'
 
 import { useState } from 'react'
 import {
-  Home,
   Menu,
-  Briefcase,
-  MapPin,
   Mail,
-  Users,
   X,
 } from 'lucide-react'
 
@@ -27,33 +23,6 @@ export default function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
-          <Link
-            to="/"
-            className="text-sm font-medium text-foreground hover:text-primary transition-colors"
-            activeProps={{
-              className: 'text-sm font-medium text-primary transition-colors'
-            }}
-          >
-            Home
-          </Link>
-          <a
-            href="#services"
-            className="text-sm font-medium text-foreground hover:text-primary transition-colors"
-          >
-            Services
-          </a>
-          <a
-            href="#about"
-            className="text-sm font-medium text-foreground hover:text-primary transition-colors"
-          >
-            About
-          </a>
-          <a
-            href="#locations"
-            className="text-sm font-medium text-foreground hover:text-primary transition-colors"
-          >
-            Locations
-          </a>
           <a
             href="#contact"
             className="text-sm font-medium text-foreground hover:text-primary transition-colors px-6 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
@@ -94,50 +63,10 @@ export default function Header() {
         </div>
 
         <nav className="flex-1 p-4 overflow-y-auto">
-          <Link
-            to="/"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors mb-2"
-            activeProps={{
-              className:
-                'flex items-center gap-3 p-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors mb-2',
-            }}
-          >
-            <Home size={20} />
-            <span className="font-medium">Home</span>
-          </Link>
-
-          <a
-            href="#services"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors mb-2"
-          >
-            <Briefcase size={20} />
-            <span className="font-medium">Services</span>
-          </a>
-
-          <a
-            href="#about"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors mb-2"
-          >
-            <Users size={20} />
-            <span className="font-medium">About</span>
-          </a>
-
-          <a
-            href="#locations"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors mb-2"
-          >
-            <MapPin size={20} />
-            <span className="font-medium">Locations</span>
-          </a>
-
           <a
             href="#contact"
             onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors mt-4"
+            className="flex items-center gap-3 p-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
           >
             <Mail size={20} />
             <span className="font-medium">Contact</span>

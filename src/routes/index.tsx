@@ -1,16 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState, useRef } from 'react'
-import {
-  CheckCircle,
-  MapPin,
-  Building2,
-  Wrench,
-  ClipboardCheck,
-  Package,
-  Mail,
-  Phone,
-  ArrowRight,
-} from 'lucide-react'
+import { MapPin, Building2, Mail, Phone, ArrowRight } from 'lucide-react'
+import { Globe } from '@/components/ui/globe'
 
 export const Route = createFileRoute('/')({ component: HomePage })
 
@@ -44,9 +35,66 @@ function HomePage() {
     return () => observerRef.current?.disconnect()
   }, [])
 
+  // Service animations - slide in from sides
+  useEffect(() => {
+    const serviceObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Animate the main service container
+            const serviceElement = entry.target as HTMLElement
+            serviceElement.style.opacity = '1'
+
+            // Animate child elements from sides
+            const children =
+              serviceElement.querySelectorAll('[data-slide-from]')
+            children.forEach((child) => {
+              const htmlChild = child as HTMLElement
+              const direction = htmlChild.getAttribute('data-slide-from')
+
+              // Set initial transform based on direction
+              if (direction === 'left') {
+                htmlChild.style.transform = 'translateX(0)'
+                htmlChild.style.opacity = '1'
+              } else if (direction === 'right') {
+                htmlChild.style.transform = 'translateX(0)'
+                htmlChild.style.opacity = '1'
+              }
+            })
+          }
+        })
+      },
+      { threshold: 0.2 },
+    )
+
+    // Observe all service items
+    const serviceItems = document.querySelectorAll('[data-service-animate]')
+    serviceItems.forEach((item) => {
+      const htmlItem = item as HTMLElement
+
+      // Set initial transforms for children
+      const children = htmlItem.querySelectorAll('[data-slide-from]')
+      children.forEach((child) => {
+        const htmlChild = child as HTMLElement
+        const direction = htmlChild.getAttribute('data-slide-from')
+
+        if (direction === 'left') {
+          htmlChild.style.transform = 'translateX(-100px)'
+          htmlChild.style.opacity = '0'
+        } else if (direction === 'right') {
+          htmlChild.style.transform = 'translateX(100px)'
+          htmlChild.style.opacity = '0'
+        }
+      })
+
+      serviceObserver.observe(item)
+    })
+
+    return () => serviceObserver.disconnect()
+  }, [])
+
   const services = [
     {
-      icon: <CheckCircle className="w-8 h-8" />,
       title: 'Pre-Approval Success',
       items: [
         'Site Survey and Feasibility Analysis',
@@ -56,9 +104,9 @@ function HomePage() {
         'Vendor and GC Sourcing',
         'Capital Planning and Budgeting',
       ],
+      image: '/images/1.jpeg',
     },
     {
-      icon: <ClipboardCheck className="w-8 h-8" />,
       title: 'Project Management',
       items: [
         'Schedule and Milestone Tracking',
@@ -68,9 +116,9 @@ function HomePage() {
         'Change Management',
         'Strategic Process Implementation',
       ],
+      image: '/images/2.jpeg',
     },
     {
-      icon: <Wrench className="w-8 h-8" />,
       title: 'Post Opening Support',
       items: [
         'Maintenance Vendor Selection',
@@ -80,29 +128,27 @@ function HomePage() {
         'Green Store Exits',
         'Fixture Recovery and Recycling',
       ],
-    },
-    {
-      icon: <Package className="w-8 h-8" />,
-      title: 'Turnkey Solution',
-      items: [
-        'End-to-End Project Delivery',
-        'Technical Store Design',
-        'Construction Fit Out Execution',
-        'Full Project Ownership',
-        'Seamless Integration',
-        'Comprehensive Support',
-      ],
+      image: '/images/3.jpeg',
     },
   ]
 
   const regions = [
-    { name: 'United Kingdom', cities: ['London', 'Leeds', 'Manchester'] },
+    {
+      name: 'United Kingdom',
+      cities: ['London', 'Leeds', 'Manchester'],
+    },
     {
       name: 'France',
       cities: ['Paris', 'Marseille', 'Lyon', 'Strasbourg', 'Lille'],
     },
-    { name: 'Spain', cities: ['Madrid', 'Barcelona', 'Valencia', 'Sevilla'] },
-    { name: 'Italy', cities: ['Milan', 'Rome', 'Verona', 'Bologna'] },
+    {
+      name: 'Spain',
+      cities: ['Madrid', 'Barcelona', 'Valencia', 'Sevilla'],
+    },
+    {
+      name: 'Italy',
+      cities: ['Milan', 'Rome', 'Verona', 'Bologna'],
+    },
     {
       name: 'DACH',
       cities: ['Berlin', 'Hamburg', 'Frankfurt', 'Zurich', 'Vienna'],
@@ -131,7 +177,7 @@ function HomePage() {
             alt="Storecraft"
             className="h-32 md:h-40 mx-auto mb-6 animate-fade-in"
           />
-          <p className="text-xl md:text-4xl font-semibold text-muted-foreground mb-8 max-w-4xl mx-auto mt-2">
+          <p className="text-xl md:text-4xl font-semibold text-muted-foreground mb-8 max-w-4xl mx-auto mt-6">
             Comprehensive project management consultancy specializing in retail
             and hospitality sectors
           </p>
@@ -201,50 +247,65 @@ function HomePage() {
         }`}
       >
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Our Services
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              A tailored solution for every client
-            </p>
-          </div>
+          <div className="space-y-24">
+            {services.map((service, index) => {
+              const isEven = index % 2 === 1
+              const delay = index * 200
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className="group bg-card border border-border rounded-xl p-8 hover:shadow-2xl transition-all duration-500 hover:border-accent hover:-translate-y-2"
-                style={{
-                  transitionDelay: `${index * 100}ms`,
-                }}
-              >
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="p-3 bg-primary text-primary-foreground rounded-lg group-hover:scale-110 transition-transform duration-300">
-                    {service.icon}
+              return (
+                <div
+                  key={index}
+                  data-service-animate
+                  className={`flex flex-col ${isEven ? 'md:flex-row-reverse' : 'md:flex-row'} gap-8 md:gap-12 items-center opacity-0 transition-all duration-800 ease-out`}
+                  style={{
+                    transitionDelay: `${delay}ms`,
+                  }}
+                >
+                  {/* Image */}
+                  <div
+                    data-slide-from={isEven ? 'right' : 'left'}
+                    className="w-full md:w-1/2 opacity-0 transition-all duration-800 ease-out"
+                    style={{
+                      transitionDelay: `${delay}ms`,
+                    }}
+                  >
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      className="rounded-2xl aspect-[4/3] shadow-2xl w-full h-full object-cover"
+                    />
                   </div>
-                  <h3 className="text-2xl font-bold text-foreground">
-                    {service.title}
-                  </h3>
+
+                  {/* Text Content */}
+                  <div
+                    data-slide-from={isEven ? 'left' : 'right'}
+                    className="w-full md:w-1/2 opacity-0 transition-all duration-800 ease-out"
+                    style={{
+                      transitionDelay: `${delay}ms`,
+                    }}
+                  >
+                    <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+                      {service.title}
+                    </h3>
+                    <ul className="space-y-4">
+                      {service.items.map((item, i) => (
+                        <li
+                          key={i}
+                          className="flex items-start gap-3 text-lg text-muted-foreground"
+                        >
+                          <div className="w-2 h-2 rounded-full bg-accent mt-2 flex-shrink-0" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-                <ul className="space-y-3">
-                  {service.items.map((item, i) => (
-                    <li
-                      key={i}
-                      className="flex items-start gap-3 text-muted-foreground group-hover:text-foreground transition-colors"
-                    >
-                      <div className="w-1.5 h-1.5 rounded-full bg-accent mt-2 flex-shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>
 
-      {/* Geographic Coverage */}
       <section
         id="locations"
         data-animate
@@ -264,34 +325,72 @@ function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
-            {regions.map((region, index) => (
-              <div
-                key={index}
-                className="bg-card border border-border rounded-xl p-6 hover:shadow-xl transition-all duration-300 hover:border-primary"
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <Building2 className="w-6 h-6 text-primary" />
-                  <h3 className="text-xl font-bold text-foreground">
-                    {region.name}
-                  </h3>
-                </div>
-                <ul className="space-y-2">
-                  {region.cities.map((city, i) => (
-                    <li
-                      key={i}
-                      className="flex items-center gap-2 text-muted-foreground"
-                    >
-                      <MapPin className="w-4 h-4 text-accent" />
-                      <span>{city}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          {/* Interactive Globe - Truncated Northern Hemisphere */}
+          <div className="relative flex items-end justify-center h-[400px] md:h-[600px] -mt-16 md:-mt-36 -mb-48 md:mb-0 overflow-hidden">
+            <Globe className="top-0" />
           </div>
         </div>
       </section>
+
+      {/* Turnkey Solution Section */}
+      <section
+        id="turnkey"
+        data-animate
+        className={`-mt-24 py-24 px-6 bg-primary transition-all duration-1000 ${
+          visibleSections.has('turnkey')
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 translate-y-10'
+        }`}
+      >
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-8">
+            Turnkey Solutions
+          </h2>
+          <p className="text-2xl md:text-3xl text-primary-foreground/90 leading-relaxed font-light">
+            From initial design to final execution, we provide complete turnkey
+            solutions that deliver fully operational retail spaces with seamless
+            integration and comprehensive support throughout every phase of your
+            project.
+          </p>
+        </div>
+      </section>
+
+      {/* Geographic Coverage */}
+
+      {/* <section
+        className={`-mt-24 bg-secondary py-12 px-24 transition-all duration-1000 ${
+          visibleSections.has('locations')
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 translate-y-10'
+        }`}
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 z-50">
+          {regions.map((region, index) => (
+            <div
+              key={index}
+              className="bg-card border-2 border-border rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:border-primary hover:-translate-y-1"
+            >
+              <div className="flex items-center gap-4 mb-6">
+                <Building2 className="w-8 h-8 text-primary" />
+                <h3 className="text-xl font-bold text-foreground">
+                  {region.name}
+                </h3>
+              </div>
+              <ul className="space-y-3">
+                {region.cities.map((city, i) => (
+                  <li
+                    key={i}
+                    className="flex items-center gap-3 text-muted-foreground"
+                  >
+                    <MapPin className="w-4 h-4 text-accent flex-shrink-0" />
+                    <span className="text-sm">{city}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section> */}
 
       {/* About Section */}
       <section
@@ -305,48 +404,56 @@ function HomePage() {
       >
         <div className="max-w-5xl mx-auto">
           <div className="bg-card border border-border rounded-2xl p-8 md:p-12 shadow-2xl">
-            <div className="text-center mb-8">
-              <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-2">
-                About
-              </h2>
-              <div className="w-24 h-1 bg-primary mx-auto rounded-full" />
+            <div className="flex flex-col md:flex-row gap-8 items-start">
+              {/* Image */}
+              <div className="w-full md:w-1/3 flex-shrink-0">
+                <img
+                  src="/images/douglas.jpeg"
+                  alt="Douglas Deptula"
+                  className="w-full aspect-square object-cover rounded-2xl shadow-lg"
+                />
+              </div>
+
+              {/* Content */}
+              <div className="flex-1 space-y-6">
+                <div>
+                  <h3 className="text-3xl font-bold text-foreground mb-2">
+                    Douglas Deptula
+                  </h3>
+                  <p className="text-xl text-muted-foreground mb-1">
+                    Founder & Director
+                  </p>
+                  <p className="flex items-center gap-2 text-accent font-medium">
+                    <MapPin className="w-4 h-4" />
+                    Paris, France
+                  </p>
+                </div>
+
+                <div className="space-y-4 text-muted-foreground leading-relaxed">
+                  <p>
+                    Douglas is originally from the United States and has{' '}
+                    <span className="text-primary font-semibold">
+                      twenty years of varied experience
+                    </span>{' '}
+                    in the retail construction, project management and real
+                    estate sectors. He has partnered with market leading
+                    international retailers in their expansion across Europe and
+                    North America and prides himself on making the experience
+                    extraordinary.
+                  </p>
+                  <p>
+                    Douglas is a hands-on team leader that is passionate about
+                    understanding each client's specific program requirements
+                    and developing custom solutions to help them succeed. He
+                    believes in creating true partnerships with all project
+                    stakeholders to leverage all skillsets and focus on
+                    accomplishing one common goal.
+                  </p>
+                </div>
+              </div>
             </div>
 
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-3xl font-bold text-foreground mb-2">
-                  Douglas Deptula
-                </h3>
-                <p className="text-xl text-muted-foreground mb-1">Director</p>
-                <p className="flex items-center gap-2 text-accent font-medium">
-                  <MapPin className="w-4 h-4" />
-                  Paris, France
-                </p>
-              </div>
-
-              <div className="h-px bg-border" />
-
-              <div className="space-y-4 text-muted-foreground leading-relaxed">
-                <p>
-                  Douglas is originally from the United States and has{' '}
-                  <span className="text-primary font-semibold">
-                    twenty years of varied experience
-                  </span>{' '}
-                  in the retail construction, project management and real estate
-                  sectors. He has partnered with market leading international
-                  retailers in their expansion across Europe and North America
-                  and prides himself on making the experience extraordinary.
-                </p>
-                <p>
-                  Douglas is a hands-on team leader that is passionate about
-                  understanding each client's specific program requirements and
-                  developing custom solutions to help them succeed. He believes
-                  in creating true partnerships with all project stakeholders to
-                  leverage all skillsets and focus on accomplishing one common
-                  goal.
-                </p>
-              </div>
-
+            <div className="space-y-6 mt-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">
                 <div className="bg-background/50 rounded-xl p-6">
                   <h4 className="font-bold text-foreground mb-3">Key Roles</h4>
@@ -400,92 +507,14 @@ function HomePage() {
             : 'opacity-0 translate-y-10'
         }`}
       >
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Get In Touch
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              Ready to start your next project? Contact our team
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Paris Office */}
-            <div className="bg-card border border-border rounded-xl p-8 hover:shadow-xl transition-all duration-300 hover:border-primary">
-              <div className="flex items-center gap-3 mb-6">
-                <Building2 className="w-8 h-8 text-primary" />
-                <h3 className="text-2xl font-bold text-foreground">
-                  Paris Office
-                </h3>
-              </div>
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-accent mt-1" />
-                  <div>
-                    <p className="text-foreground font-medium">Paris, France</p>
-                    <p className="text-muted-foreground text-sm">
-                      Headquarters
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Mail className="w-5 h-5 text-accent mt-1" />
-                  <div>
-                    <a
-                      href="mailto:contact@storecraft.eu"
-                      className="text-foreground hover:text-primary transition-colors"
-                    >
-                      contact@storecraft.eu
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* London Office */}
-            <div className="bg-card border border-border rounded-xl p-8 hover:shadow-xl transition-all duration-300 hover:border-primary">
-              <div className="flex items-center gap-3 mb-6">
-                <Building2 className="w-8 h-8 text-primary" />
-                <h3 className="text-2xl font-bold text-foreground">
-                  London Office
-                </h3>
-              </div>
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-accent mt-1" />
-                  <div>
-                    <p className="text-foreground font-medium">London, UK</p>
-                    <p className="text-muted-foreground text-sm">
-                      Regional Office
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Mail className="w-5 h-5 text-accent mt-1" />
-                  <div>
-                    <a
-                      href="mailto:uk@storecraft.eu"
-                      className="text-foreground hover:text-primary transition-colors"
-                    >
-                      uk@storecraft.eu
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* CTA */}
-          <div className="mt-12 text-center">
-            <a
-              href="mailto:contact@storecraft.eu"
-              className="inline-flex items-center gap-3 px-10 py-5 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 text-lg font-semibold"
-            >
-              <Mail className="w-6 h-6" />
-              Contact Us
-            </a>
-          </div>
+        <div className="mt-12 text-center">
+          <a
+            href="mailto:douglas@storecraftconsulting.com"
+            className="inline-flex items-center gap-3 px-10 py-5 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 text-lg font-semibold"
+          >
+            <Mail className="w-6 h-6" />
+            Contact Us
+          </a>
         </div>
       </section>
 
