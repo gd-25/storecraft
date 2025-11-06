@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState, useRef } from 'react'
 import { MapPin, Building2, Mail, Phone, ArrowRight } from 'lucide-react'
 import { Globe } from '@/components/ui/globe'
+import { LogoBanner } from '@/components/logo-banner'
 
 export const Route = createFileRoute('/')({ component: HomePage })
 
@@ -157,13 +158,17 @@ function HomePage() {
   ]
 
   const clients = [
-    { name: 'Big Mamma', logo: '/logos/big_mamma.svg' },
-    { name: 'Skims', logo: '/logos/skims.svg' },
-    { name: 'Alo Yoga', logo: '/logos/alo.svg' },
-    { name: 'Foot Locker', logo: '/logos/foot-locker.svg' },
-    { name: 'Reformation', logo: '/logos/reformation.svg' },
-    { name: 'Nike', logo: '/logos/nike.svg' },
-    { name: 'Saucony', logo: '/logos/saucony.svg' },
+    { name: 'Big Mamma', logo: '/logos/big-mamma.svg', heightClass: 'h-6' },
+    { name: 'Skims', logo: '/logos/skims.svg', heightClass: 'h-6' },
+    { name: 'Alo Yoga', logo: '/logos/alo.svg', heightClass: 'h-9' },
+    { name: 'Foot Locker', logo: '/logos/foot-locker.svg', heightClass: 'h-6' },
+    { name: 'Reformation', logo: '/logos/reformation.svg', heightClass: 'h-6' },
+    { name: 'Nike', logo: '/logos/nike.svg', heightClass: 'h-6' },
+    { name: 'Saucony', logo: '/logos/saucony.svg', heightClass: 'h-6' },
+    { name: 'Frame Denim', logo: '/logos/frame-denim.svg', heightClass: 'h-6' },
+    { name: 'Hollister', logo: '/logos/hollister.svg', heightClass: 'h-6' },
+    { name: 'Abercrombie', logo: '/logos/abercrombie.svg', heightClass: 'h-6' },
+    { name: 'Saint Sofia', logo: '/logos/saint-sofia.svg', heightClass: 'h-6' },
   ]
 
   return (
@@ -199,41 +204,7 @@ function HomePage() {
           </p>
         </div>
 
-        <div className="logo-slider">
-          <div className="logo-track">
-            {/* First set of logos */}
-            {clients.map((client, index) => (
-              <div key={`logo-1-${index}`} className="logo-slide">
-                <img
-                  src={client.logo}
-                  alt={client.name}
-                  className={`${client.name === 'Alo Yoga' ? 'h-9' : 'h-6'} mx-12 w-auto object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-500`}
-                />
-              </div>
-            ))}
-            {/* Duplicate set for seamless loop */}
-            {clients.map((client, index) => (
-              <div key={`logo-2-${index}`} className="logo-slide">
-                <img
-                  src={client.logo}
-                  alt={client.name}
-                  className={`${client.name === 'Alo Yoga' ? 'h-9' : 'h-6'} mx-12 w-auto object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-500`}
-                />
-              </div>
-            ))}
-
-            {/* Duplicate set for seamless loop */}
-            {clients.map((client, index) => (
-              <div key={`logo-3-${index}`} className="logo-slide">
-                <img
-                  src={client.logo}
-                  alt={client.name}
-                  className={`${client.name === 'Alo Yoga' ? 'h-9' : 'h-6'} mx-12 w-auto object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-500`}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
+        <LogoBanner clients={clients} />
       </section>
 
       {/* Services Section */}
