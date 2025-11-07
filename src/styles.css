@@ -164,7 +164,7 @@ code {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-33.333%);
   }
 }
 
@@ -178,7 +178,7 @@ code {
   display: flex;
   align-items: center;
   width: fit-content;
-  animation: scroll-left 40s linear infinite;
+  animation: scroll-left 20s linear infinite;
   gap: 0;
 }
 
