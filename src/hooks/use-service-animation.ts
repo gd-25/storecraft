@@ -20,6 +20,9 @@ export function useServiceAnimation() {
               } else if (direction === 'right') {
                 htmlChild.style.transform = 'translateX(0)'
                 htmlChild.style.opacity = '1'
+              } else if (direction === 'bottom') {
+                htmlChild.style.transform = 'translateY(0)'
+                htmlChild.style.opacity = '1'
               }
             })
           }
@@ -42,6 +45,9 @@ export function useServiceAnimation() {
           htmlChild.style.opacity = '0'
         } else if (direction === 'right') {
           htmlChild.style.transform = 'translateX(100px)'
+          htmlChild.style.opacity = '0'
+        } else if (direction === 'bottom') {
+          htmlChild.style.transform = 'translateY(100px)'
           htmlChild.style.opacity = '0'
         }
       })

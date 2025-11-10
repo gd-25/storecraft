@@ -32,7 +32,7 @@ function HomePage() {
 
       <ServicesSection visibleSections={visibleSections} />
       <LocationsSection visibleSections={visibleSections} />
-      <TurnkeySection visibleSections={visibleSections} />
+      <TurnkeySection />
       <AboutSection visibleSections={visibleSections} />
       <ContactSection visibleSections={visibleSections} />
       <FooterSection />

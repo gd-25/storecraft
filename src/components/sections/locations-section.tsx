@@ -1,6 +1,4 @@
-import { MapPin, Building2 } from 'lucide-react'
 import { Globe } from '@/components/ui/globe'
-import { regions } from '@/data/regions'
 
 interface LocationsSectionProps {
   visibleSections: Set<string>
@@ -27,7 +25,7 @@ export function LocationsSection({ visibleSections }: LocationsSectionProps) {
           </p>
         </div>
 
-        <div className="relative flex items-end justify-center h-[400px] md:h-[600px] -mt-16 md:-mt-36 -mb-48 md:mb-0 overflow-hidden">
+        <div className="relative flex items-end justify-center h-[400px] md:h-[600px] -mt-16 md:-mt-36 overflow-hidden">
           <Globe className="top-0" />
         </div>
       </div>
