@@ -24,10 +24,10 @@ export default function Header() {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
           <a
-            href="#contact"
+            href="mailto:douglas@storecraftconsulting.com"
             className="text-sm font-medium text-foreground hover:text-primary transition-colors px-6 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
           >
-            Contact
+            Contact Us
           </a>
         </nav>
 
@@ -64,12 +64,12 @@ export default function Header() {
 
         <nav className="flex-1 p-4 overflow-y-auto">
           <a
-            href="#contact"
+            href="mailto:douglas@storecraftconsulting.com"
             onClick={() => setIsOpen(false)}
             className="flex items-center gap-3 p-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
           >
             <Mail size={20} />
-            <span className="font-medium">Contact</span>
+            <span className="font-medium">Contact Us</span>
           </a>
         </nav>
       </aside>

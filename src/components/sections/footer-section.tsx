@@ -10,6 +10,18 @@ export function FooterSection() {
         <p className="text-primary-foreground/80 mb-4">
           Global Project Management Excellence
         </p>
+        <a
+          href="https://www.linkedin.com/company/storecraftconsulting"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block mb-4 hover:opacity-80 transition-opacity"
+        >
+          <img
+            src="/logos/linkedin.svg"
+            alt="LinkedIn"
+            className="h-6 w-6 mx-auto invert"
+          />
+        </a>
         <p className="text-primary-foreground/60 text-sm">
           © {new Date().getFullYear()} Storecraft. All rights reserved.
         </p>

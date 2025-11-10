@@ -34,7 +34,7 @@ const GLOBE_CONFIG: COBEOptions = {
 // Hardcoded speed calculation based on longitude zones
 const getTargetSpeed = (phi: number): number => {
   // Convert phi (radians) to longitude (-180 to 180)
-  const longitude = ((phi * 180 / Math.PI) % 360 + 360) % 360
+  const longitude = ((((phi * 180) / Math.PI) % 360) + 360) % 360
   const normalizedLon = longitude > 180 ? longitude - 360 : longitude
 
   // Slow zone: single continuous arc from Europe to Los Angeles (going west)
@@ -44,7 +44,7 @@ const getTargetSpeed = (phi: number): number => {
   }
 
   // Fast zone: empty areas (Pacific Ocean, Asia back to Europe)
-  return 0.010 // Fast speed
+  return 0.1 // Fast speed
 }
 
 export function Globe({

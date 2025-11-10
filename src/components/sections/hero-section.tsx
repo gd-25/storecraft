@@ -5,9 +5,9 @@ export function HeroSection() {
         <img
           src="/storecraft-logo-black.svg"
           alt="Storecraft"
-          className="h-32 md:h-40 mx-auto mb-6 animate-fade-in"
+          className="h-32 md:h-80 mx-auto mb-6 animate-fade-in"
         />
-        <p className="text-3xl md:text-4xl 2xl:text-5xl  font-medium text-muted-foreground mb-8 mx-auto mt-12 w-full max-w-4xl 2xl:max-w-7xl">
+        <p className="text-3xl md:text-4xl 2xl:text-5xl font-medium text-muted-foreground mb-8 mx-auto mt-12 w-full max-w-4xl 2xl:max-w-7xl leading-tight">
           Comprehensive project management consultancy specializing in retail
           and hospitality sectors
         </p>
