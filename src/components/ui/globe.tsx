@@ -31,6 +31,22 @@ const GLOBE_CONFIG: COBEOptions = {
   ],
 }
 
+// Hardcoded speed calculation based on longitude zones
+const getTargetSpeed = (phi: number): number => {
+  // Convert phi (radians) to longitude (-180 to 180)
+  const longitude = ((phi * 180 / Math.PI) % 360 + 360) % 360
+  const normalizedLon = longitude > 180 ? longitude - 360 : longitude
+
+  // Slow zone: single continuous arc from Europe to Los Angeles (going west)
+  // Covers all markers: Europe (-5° to 15°) → US East → US West (-123°)
+  if (normalizedLon >= -123 && normalizedLon <= 15) {
+    return 0.002 // Slow speed
+  }
+
+  // Fast zone: empty areas (Pacific Ocean, Asia back to Europe)
+  return 0.010 // Fast speed
+}
+
 export function Globe({
   className,
   config = GLOBE_CONFIG,
@@ -39,6 +55,7 @@ export function Globe({
   config?: COBEOptions
 }) {
   let phi = 0
+  let currentSpeed = 0.005 // Start with middle speed
   let width = 0
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const pointerInteracting = useRef(null)
@@ -62,7 +79,13 @@ export function Globe({
 
   const onRender = useCallback(
     (state: Record<string, any>) => {
-      if (!pointerInteracting.current) phi += 0.005
+      if (!pointerInteracting.current) {
+        // Get target speed based on current position
+        const targetSpeed = getTargetSpeed(phi)
+        // Smooth interpolation for ease-in/ease-out effect
+        currentSpeed += (targetSpeed - currentSpeed) * 0.1
+        phi += currentSpeed
+      }
       state.phi = phi + r
       state.width = width * 2
       state.height = width * 2
