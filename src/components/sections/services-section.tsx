@@ -137,10 +137,6 @@ export function ServicesSection({ visibleSections }: ServicesSectionProps) {
                 </div>
               </div>
             </div>
-
-            <p className="text-muted-foreground mt-12 text-lg">
-              Everything you need in one complete package
-            </p>
           </div>
         </div>
       </div>
