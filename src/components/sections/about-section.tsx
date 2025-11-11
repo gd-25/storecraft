@@ -33,7 +33,7 @@ export function AboutSection({ visibleSections }: AboutSectionProps) {
 
     {
       name: 'Valentina Annepiras',
-      title: 'Project Coordinator',
+      title: 'Senior Project Manager',
       image: '/images/valentina.jpeg',
       bio: 'Experienced Architect, Construction PM and Interior Designer working worldwide with proven experience in the fields of retail and hospitality. Specialised in reuse of heritage buildings and coordination of project from concept development to construction.',
       linkedin: 'https://www.linkedin.com/in/valentinannepiras/',
@@ -41,7 +41,7 @@ export function AboutSection({ visibleSections }: AboutSectionProps) {
     },
     {
       name: 'Luke Ford',
-      title: 'Project Manager',
+      title: 'Senior Project Manager',
       image: null,
       bio: 'Experienced Project Manager with a vast portfolio of successfully delivered projects across multiple sectors. Proven track record overseeing hundreds of initiatives spanning Retail, Leisure, Technology and Food & Beverage.',
       linkedin: 'https://www.linkedin.com/in/luke-ford-8ab15b9b/',
